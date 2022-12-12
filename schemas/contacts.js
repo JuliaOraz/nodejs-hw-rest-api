@@ -8,7 +8,9 @@ const addSchema = Joi.object({
     .required(),
 });
 
-const paramsSchema = Joi.string().trim().min(1);
+const paramsSchema = Joi.object({
+  contactId: Joi.string().trim().min(1),
+});
 
 module.exports = {
   addSchema,

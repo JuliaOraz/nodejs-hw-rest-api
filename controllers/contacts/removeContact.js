@@ -8,8 +8,8 @@ const removeContact = async (req, res, next) => {
     throw HttpError(404, "Not found");
   }
 
-  res.json({
-    message: "Delete success",
+  res.status(200).json({
+    message: "Contact deleted",
   });
 };
 

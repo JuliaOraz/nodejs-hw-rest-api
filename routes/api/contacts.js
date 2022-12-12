@@ -1,27 +1,40 @@
 const express = require("express");
 
-const ctrl = require("../../controllers/contacts");
+const controller = require("../../controllers/contacts");
 
-const { ctrlWrapp } = require("../../helpers");
+const { controllerWrapp } = require("../../helpers");
 
-const { validateBody } = require("../../middlewares");
+const { validateBody, validateParams } = require("../../middlewares");
 
 const schemas = require("../../schemas/contacts");
 
 const router = express.Router();
 
-router.get("/", ctrlWrapp(ctrl.listContacts));
+router.get("/", controllerWrapp(controller.listContacts));
 
-router.get("/:contactId", ctrlWrapp(ctrl.getContactById));
+router.get(
+  "/:contactId",
+  validateParams(schemas.paramsSchema),
+  controllerWrapp(controller.getContactById)
+);
 
-router.post("/", validateBody(schemas.addSchema), ctrlWrapp(ctrl.addContact));
+router.post(
+  "/",
+  validateBody(schemas.addSchema),
+  controllerWrapp(controller.addContact)
+);
 
-router.delete("/:contactId", ctrlWrapp(ctrl.removeContact));
+router.delete(
+  "/:contactId",
+  validateParams(schemas.paramsSchema),
+  controllerWrapp(controller.removeContact)
+);
 
 router.put(
   "/:contactId",
+  validateParams(schemas.paramsSchema),
   validateBody(schemas.addSchema),
-  ctrlWrapp(ctrl.updateContactById)
+  controllerWrapp(controller.updateContactById)
 );
 
 module.exports = router;

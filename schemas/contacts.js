@@ -12,7 +12,12 @@ const paramsSchema = Joi.object({
   contactId: Joi.string().trim().min(1),
 });
 
+const updateFavoriteSchema = Joi.object({
+  favorite: Joi.boolean().required(),
+});
+
 module.exports = {
   addSchema,
   paramsSchema,
+  updateFavoriteSchema,
 };

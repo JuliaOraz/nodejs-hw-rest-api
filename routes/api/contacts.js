@@ -4,7 +4,11 @@ const controller = require("../../controllers/contacts");
 
 const { controllerWrapp } = require("../../helpers");
 
-const { validateBody, validateParams } = require("../../middlewares");
+const {
+  validateBody,
+  validateParams,
+  validateBodyFavorite,
+} = require("../../middlewares");
 
 const schemas = require("../../schemas/contacts");
 
@@ -14,6 +18,7 @@ router.get("/", controllerWrapp(controller.listContacts));
 
 router.get(
   "/:contactId",
+
   validateParams(schemas.paramsSchema),
   controllerWrapp(controller.getContactById)
 );
@@ -35,6 +40,12 @@ router.put(
   validateParams(schemas.paramsSchema),
   validateBody(schemas.addSchema),
   controllerWrapp(controller.updateContactById)
+);
+router.patch(
+  "/:contactId/favorite",
+  validateParams(schemas.paramsSchema),
+  validateBodyFavorite(schemas.updateFavoriteSchema),
+  controllerWrapp(controller.updateStatusContact)
 );
 
 module.exports = router;

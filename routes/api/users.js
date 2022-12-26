@@ -1,35 +1,22 @@
 const express = require("express");
 
-const controller = require("../../controllers/auth");
+const controller = require("../../controllers/users");
 
 const { controllerWrapp } = require("../../helpers");
 
-const {
-  validateBody,
-  validateParams,
-  authenticate,
-} = require("../../middlewares");
+const { validateBody, authenticate } = require("../../middlewares");
 
 const schemas = require("../../schemas/auth");
 
 const router = express.Router();
 
-// signup
-router.post(
-  "/signup",
-  validateBody(schemas.registerSchema),
-  controllerWrapp(controller.register)
+router.get("/current", authenticate, controllerWrapp(controller.getCurrent));
+
+router.patch(
+  "/",
+  authenticate,
+  validateBody(schemas.subscriptionSchema),
+  controllerWrapp(controller.updateSubscription)
 );
-
-// signin
-router.post(
-  "/login",
-  validateBody(schemas.loginSchema),
-  controllerWrapp(controller.login)
-);
-
-// router.get("/current", authenticate, ctrlWrapper(ctrl.getCurrent))
-
-// router.post("/logout", authenticate, ctrlWrapper(ctrl.logout))
 
 module.exports = router;

@@ -3,10 +3,6 @@ const { Contact } = require("../../models/contacts");
 const listContacts = async (req, res) => {
   const { _id: owner } = req.user;
   const { page = 1, limit = 20, favorite } = req.query;
-  // const { favorite} = req.query;
-  // console.log(favorite);
-  // const filter =
-
   const skip = (page - 1) * limit;
 
   if (favorite) {
@@ -26,5 +22,3 @@ const listContacts = async (req, res) => {
 };
 
 module.exports = listContacts;
-
-//  $or: [{ favorite: { $in: favorite } }],

@@ -18,7 +18,6 @@ router.get("/", controllerWrapp(controller.listContacts));
 
 router.get(
   "/:contactId",
-
   validateParams(schemas.paramsSchema),
   controllerWrapp(controller.getContactById)
 );

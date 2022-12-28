@@ -18,7 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/users", authRouter);
-app.use("/api/users", authenticate, usersRouter);
+app.use("/api/users", usersRouter);
 app.use("/api/contacts", authenticate, contactsRouter);
 
 app.use((req, res) => {

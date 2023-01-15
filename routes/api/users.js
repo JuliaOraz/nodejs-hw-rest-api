@@ -4,7 +4,11 @@ const controller = require("../../controllers/users");
 
 const { controllerWrapp } = require("../../helpers");
 
-const { validateBody, authenticate } = require("../../middlewares");
+const {
+  validateBody,
+  authenticate,
+  uploadAvatar,
+} = require("../../middlewares");
 
 const schemas = require("../../schemas/auth");
 
@@ -17,6 +21,13 @@ router.patch(
   authenticate,
   validateBody(schemas.subscriptionSchema),
   controllerWrapp(controller.updateSubscription)
+);
+
+router.patch(
+  "/avatars",
+  authenticate,
+  uploadAvatar.single("avatar"),
+  controllerWrapp(controller.updateAvatar)
 );
 
 module.exports = router;

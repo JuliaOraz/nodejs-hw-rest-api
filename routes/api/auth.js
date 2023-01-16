@@ -24,4 +24,15 @@ router.post(
 
 router.get("/logout", authenticate, controllerWrapp(controller.logout));
 
+router.get(
+  "/verify/:verificationToken",
+  controllerWrapp(controller.verifyEmail)
+);
+
+router.post(
+  "/verify",
+  validateBody(schemas.emailSchema),
+  controllerWrapp(controller.resendVerifyEmail)
+);
+
 module.exports = router;

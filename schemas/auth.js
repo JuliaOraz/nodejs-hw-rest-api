@@ -20,9 +20,13 @@ const subscriptionSchema = Joi.object({
     .valid(...subscription)
     .required(),
 });
+const emailSchema = Joi.object({
+  email: Joi.string().pattern(emailRegexp).required(),
+});
 
 module.exports = {
   registerSchema,
   loginSchema,
   subscriptionSchema,
+  emailSchema,
 };
